@@ -16,6 +16,9 @@ RUN \
     echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list && \
     apt-get update -y
 
+# Add Mongo user
+RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
+
 ENV MONGO_VERSION 2.6.7
 
 # Install MongoDB
@@ -27,6 +30,8 @@ RUN rm -rf /var/lib/apt/lists/*
 # Define mountable directories
 VOLUME ["/data/db"]
 
+RUN chown -R mongodb /data
+
 # Define working directory
 WORKDIR /data
 
@@ -34,7 +39,9 @@ WORKDIR /data
 #   - 27017: process
 #   - 28017: http
 EXPOSE 27017
-EXPOSE 28017
+#EXPOSE 28017
+
+USER mongodb
 
 # Define default command.
 CMD ["mongod"]
