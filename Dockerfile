@@ -24,6 +24,9 @@ RUN \
     echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list && \
     apt-get update -y
 
+# Add Mongo user
+RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
+
 ENV MONGO_VERSION 2.6.7
 
 # Install MongoDB
