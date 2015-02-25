@@ -5,10 +5,10 @@ FROM debian:wheezy
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 
 # Common set up
-RUN \
-    apt-get update && \
-    apt-get install -y curl apt-utils && \
-    apt-get upgrade -y
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    curl
+RUN apt-get upgrade -y
 
 # grab gosu for easy step-down from root
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
@@ -30,7 +30,10 @@ RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
 ENV MONGO_VERSION 2.6.7
 
 # Install MongoDB
-RUN apt-get install -y adduser mongodb-org-server=$MONGO_VERSION mongodb-org-tools=$MONGO_VERSION
+RUN apt-get install -y \
+    adduser \
+    mongodb-org-server=$MONGO_VERSION \
+    mongodb-org-tools=$MONGO_VERSION
 
 # Remove package lists as we no longer need them
 RUN rm -rf /var/lib/apt/lists/*
@@ -42,6 +45,8 @@ VOLUME ["/data/db"]
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
+COPY mongodb.conf /mongodb.conf
+
 # Expose ports.
 #   - 27017: process
 #   - 28017: http
@@ -49,5 +54,5 @@ EXPOSE 27017
 EXPOSE 28017
 
 # Define default command.
-CMD ["mongod"]
+CMD ["mongod", "--config", "/mongodb.conf"]
 
