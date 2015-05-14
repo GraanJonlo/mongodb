@@ -6,12 +6,11 @@ MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
     echo 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 
-ENV MONGO_VERSION 3.0.2
+ENV MONGO_VERSION 3.0.3
 
 # Install MongoDB
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    mongodb-org-server=$MONGO_VERSION \
-    mongodb-org-tools=$MONGO_VERSION
+    mongodb-org-server=$MONGO_VERSION
 
 # Remove package lists as we no longer need them
 RUN rm -rf /var/lib/apt/lists/*

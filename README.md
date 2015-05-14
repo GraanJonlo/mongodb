@@ -12,6 +12,6 @@ First developed by the software company 10gen (now MongoDB Inc.) in October 2007
 
 ## start a mongo instance
 
-    docker run --name some-mongo [-p 27017:27017] [-v /some/directory:/data/db] -d graanjonlo/mongodb
+    docker run --name some-mongo [-p 27017:27017] [-v /some/directory:/data/db] -d graanjonlo/mongodb[:tag]
 
 This image includes `EXPOSE 27017` (the mongo port), so standard container linking will make it automatically available to the linked containers. It also includes `VOLUME ["/data/db"]` so you can mount a data volume.
