@@ -6,7 +6,7 @@ MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
     echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
 
-ENV MONGO_VERSION 2.6.9
+ENV MONGO_VERSION 2.6.10
 
 # Install MongoDB
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
