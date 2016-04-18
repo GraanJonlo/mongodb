@@ -2,10 +2,13 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+RUN chmod +x /usr/local/bin/confd
+
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
     echo 'deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.2 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 
-ENV MONGO_VERSION 3.2.4
+ENV MONGO_VERSION 3.2.5
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     mongodb-org-server=$MONGO_VERSION \
@@ -22,4 +25,3 @@ ADD mongodb.conf /mongodb.conf
 EXPOSE 27017 28017
 
 CMD ["/sbin/my_init", "--quiet"]
-
