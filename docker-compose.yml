@@ -1,0 +1,12 @@
+version: '2'
+services:
+  mongodb:
+    image: graanjonlo/mongodb:3.2.6
+    ports:
+     - "27017:27017"
+     - "28017:28017"
+    expose:
+     - "27017"
+     - "28017"
+    volumes:
+     - "/home/andy/docker/data/mongodb:/data/db"

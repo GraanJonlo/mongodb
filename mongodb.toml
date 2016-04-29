@@ -1,0 +1,4 @@
+[template]
+src = "mongodb.conf.tmpl"
+dest = "/mongodb.conf"
+keys = []
