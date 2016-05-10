@@ -2,12 +2,17 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+RUN chmod +x /usr/local/bin/confd
+
+RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
     echo 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 
-ENV MONGO_VERSION 3.0.11
+ENV MONGO_VERSION 3.0.12
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     mongodb-org-server=$MONGO_VERSION \
     mongodb-org-shell=$MONGO_VERSION
 
